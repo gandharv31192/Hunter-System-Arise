@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hunter System | Solo Leveling</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Loading Overlay -->
+  <div id="loading-overlay">
+    <div class="loader">
+      <div class="loader-ring"></div>
+      <p>SYSTEM BOOTING...</p>
+    </div>
+  </div>
+
+  <!-- Rank Up / Level Up Overlay -->
+  <div id="promotion-overlay" class="hidden">
+    <div class="promotion-content">
+      <h1 id="promotion-title">ARISE</h1>
+      <p id="promotion-subtitle"></p>
+    </div>
+  </div>
+
+  <!-- App Container -->
+  <div class="app">
+    <!-- Sidebar / Navigation -->
+    <nav class="sidebar">
+      <div class="logo">
+        <i class="fas fa-dragon"></i>
+        <span>HUNTER SYSTEM</span>
+      </div>
+      <ul class="nav-links">
+        <li class="active" data-page="dashboard"><i class="fas fa-home"></i> Dashboard</li>
+        <li data-page="missions"><i class="fas fa-dumbbell"></i> Daily Mission</li>
+        <li data-page="stats"><i class="fas fa-chart-line"></i> Statistics</li>
+        <li data-page="achievements"><i class="fas fa-trophy"></i> Achievements</li>
+        <li data-page="settings"><i class="fas fa-cog"></i> Settings</li>
+      </ul>
+      <div class="hunter-status">
+        <div class="rank-badge" id="sidebar-rank">E</div>
+        <div>
+          <div class="hunter-name">Hunter</div>
+          <div class="hunter-level">Lv. <span id="sidebar-level">1</span></div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Dashboard -->
+      <section id="dashboard" class="page active">
+        <header class="page-header">
+          <h1>Welcome, Hunter</h1>
+          <p class="quote" id="motivational-quote">"Arise."</p>
+        </header>
+
+        <div class="dashboard-grid">
+          <div class="card glow-card rank-card">
+            <div class="card-title">Current Rank</div>
+            <div class="rank-display" id="current-rank">E Rank</div>
+            <div class="rank-progress">
+              <div class="progress-bar">
+                <div class="progress-fill" id="rank-progress-fill"></div>
+              </div>
+              <span id="rank-progress-text">0 / 500 XP to D Rank</span>
+            </div>
+          </div>
+
+          <div class="card glow-card">
+            <div class="card-title">Level</div>
+            <div class="big-stat" id="current-level">1</div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="level-progress-fill"></div>
+            </div>
+            <span id="level-progress-text">0 / 100 XP</span>
+          </div>
+
+          <div class="card glow-card">
+            <div class="card-title">Total XP</div>
+            <div class="big-stat" id="total-xp">0</div>
+          </div>
+
+          <div class="card glow-card">
+            <div class="card-title">Daily Streak</div>
+            <div class="big-stat"><span id="streak">0</span> <i class="fas fa-fire"></i></div>
+          </div>
+        </div>
+
+        <div class="card glow-card difficulty-card">
+          <div class="card-title">Current Difficulty</div>
+          <div class="difficulty-selector" id="difficulty-display">Beginner</div>
+          <p class="hint">Complete all 30 days of the current difficulty to unlock the next one.</p>
+        </div>
+      </section>
+
+      <!-- Daily Missions -->
+      <section id="missions" class="page">
+        <header class="page-header">
+          <h1>Daily Mission</h1>
+          <div class="day-selector">
+            <button id="prev-day"><i class="fas fa-chevron-left"></i></button>
+            <span id="current-day-label">Day 1</span>
+            <button id="next-day"><i class="fas fa-chevron-right"></i></button>
+          </div>
+        </header>
+
+        <div class="difficulty-tabs" id="difficulty-tabs">
+          <button class="tab active" data-diff="beginner">Beginner</button>
+          <button class="tab locked" data-diff="intermediate">Intermediate</button>
+          <button class="tab locked" data-diff="advanced">Advanced</button>
+          <button class="tab locked" data-diff="expert">Expert</button>
+        </div>
+
+        <div class="missions-container" id="missions-list">
+          <!-- Tasks rendered by JS -->
+        </div>
+
+        <div class="mission-actions">
+          <button class="btn primary" id="complete-all-btn">Complete All Tasks</button>
+          <div class="xp-earned" id="mission-xp">+0 XP</div>
+        </div>
+      </section>
+
+      <!-- Statistics -->
+      <section id="stats" class="page">
+        <header class="page-header">
+          <h1>Statistics</h1>
+        </header>
+        <div class="stats-grid" id="stats-grid">
+          <!-- Filled by JS -->
+        </div>
+      </section>
+
+      <!-- Achievements -->
+      <section id="achievements" class="page">
+        <header class="page-header">
+          <h1>Achievements</h1>
+        </header>
+        <div class="achievements-grid" id="achievements-grid">
+          <!-- Filled by JS -->
+        </div>
+      </section>
+
+      <!-- Settings -->
+      <section id="settings" class="page">
+        <header class="page-header">
+          <h1>Settings</h1>
+        </header>
+        <div class="settings-list">
+          <div class="setting-item">
+            <span>Sound Effects</span>
+            <label class="switch">
+              <input type="checkbox" id="sound-toggle" checked />
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="setting-item">
+            <span>Dark Mode (Always On)</span>
+            <span class="badge">Enabled</span>
+          </div>
+          <div class="setting-item">
+            <button class="btn secondary" id="export-btn"><i class="fas fa-download"></i> Export Progress</button>
+            <button class="btn secondary" id="import-btn"><i class="fas fa-upload"></i> Import Progress</button>
+            <input type="file" id="import-file" accept=".json" hidden />
+          </div>
+          <div class="setting-item danger">
+            <button class="btn danger" id="reset-btn"><i class="fas fa-trash"></i> Reset All Progress</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- XP Floating Text Container -->
+  <div id="xp-float-container"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
